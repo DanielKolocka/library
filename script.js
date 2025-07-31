@@ -1,5 +1,6 @@
 const library = document.querySelector(".library");
 
+
 const myLibrary = [];
 
 function Book(title, author, numPages, status) {
@@ -27,6 +28,7 @@ function printLibrary(libraryArray) {
         // console.log(`Title: ${libraryArray[i].title}, author: ${libraryArray[i].author}, number of pages: ${libraryArray[i].numPages}, status: ${libraryArray[i].status}, id: ${libraryArray[i].id}`);
         const newBook = document.createElement("div");
         newBook.setAttribute("class", "book");
+        newBook.setAttribute("id", libraryArray[i].id);
 
         const newTitle = document.createElement("p");
         newTitle.textContent = libraryArray[i].title;
@@ -52,7 +54,20 @@ function printLibrary(libraryArray) {
     return;
 }
 
+function deleteBook(id) {
+    const bookToRemove = document.querySelector("#" + id);
+    library.removeChild(bookToRemove);
+}
+
 printLibrary(myLibrary);
 
+const deleteButtons = document.querySelectorAll("#deleteBook");
 
+console.log("test");
+for (let i=0; i<deleteButtons.length; i++) {
+    deleteButtons[i].addEventListener("click", (e) => {
+        // console.log(e.target.parentElement.id);
+        deleteBook(e.target.parentElement.id);
+    });
+}
 
