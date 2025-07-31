@@ -14,6 +14,29 @@
             <button id="logIn">Log In</button>
         </div>
     </header>
+    <div class="addBookContainer">
+        <button id="addNewBook">+ Add Book</button>
+    </div>
+    <dialog>
+        <div class="dialogContainer">
+            <h3 class="formTitle">Add New Book</h3>
+            <form class="addBookForm">
+                <!-- <label for="titleInput">Title: </label> -->
+                <input type="text" id="titleInput" placeholder="Title">
+                <!-- <label for="authorInput">Author: </label> -->
+                <input type="text" id="authorInput" placeholder="Author">
+                <!-- <label for="pagesInput">Pages: </label> -->
+                <input type="text" id="pagesInput" placeholder="Pages">
+                <div class="formStatusButton">
+                    <label for="statusInput">Have you read it?</label>
+                    <input type="checkbox" id="isReadButton">
+                </div>
+            </form>
+            <div class="submitContainer">
+                <button id="submitButton">Submit</button>
+            </div>
+        </div>
+    </dialog>
     <div class="library">
         <!-- <div class="book" id="2435345345">
             <p>Physics</p>

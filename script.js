@@ -1,4 +1,9 @@
 const library = document.querySelector(".library");
+const dialog = document.querySelector("dialog");
+const addBookButton = document.querySelector("#addNewBook");
+addBookButton.addEventListener("click", (e) => {
+    dialog.showModal();
+});
 
 
 const myLibrary = [];
