@@ -32,6 +32,18 @@ function Book(title, author, numPages, status) {
     this.id = crypto.randomUUID();
 }
 
+Book.prototype.toggleStatus = function(e) {
+    console.log(e.target);
+    if (e.target.innerHTML == "Not Read") {
+        e.target.innerHTML = "Read";
+        e.target.style.backgroundColor = "green";
+    }
+    else {
+        e.target.innerHTML = "Not Read";
+        e.target.style.backgroundColor = "red";
+    }
+}
+
 function addBookToLibrary(bookTitle, bookAuthor, bookPages, bookStatus) {
     let book = new Book(bookTitle, bookAuthor, bookPages, bookStatus);
     myLibrary.push(book);
@@ -65,7 +77,19 @@ function printLibrary() {
 
         const statusButton = document.createElement("button");
         statusButton.setAttribute("id", "changeStatus");
-        statusButton.textContent = myLibrary[i].status ? "Read" : "Not Read";
+        // statusButton.textContent = myLibrary[i].status ? "Read" : "Not Read";
+        if (myLibrary[i].status) {
+            statusButton.textContent = "Read"
+            statusButton.style.backgroundColor = "green";
+        }
+         else {
+            statusButton.textContent = "Not Read"
+            statusButton.style.backgroundColor = "red";
+         }
+        statusButton.addEventListener("click", (e) => {
+            myLibrary[i].toggleStatus(e);
+        })
+
         const deleteButton = document.createElement("button");
         deleteButton.setAttribute("id", "deleteBook");
         deleteButton.textContent = "Delete";
@@ -105,3 +129,7 @@ function deleteBook(myid) {
 
 
 
+
+
+// Add a button on each book’s display to change its read status.
+// To facilitate this you will want to create Book prototype function that toggles a book instance’s read status.
