@@ -5,6 +5,22 @@ addBookButton.addEventListener("click", (e) => {
     dialog.showModal();
 });
 
+const dialogTitle = document.querySelector("#titleInput");
+const dialogAuthor = document.querySelector("#authorInput");
+const dialogPages = document.querySelector("#pagesInput");
+const dialogStatus = document.querySelector("#isReadButton");
+const dialogSubmit = document.querySelector("#submitButton");
+dialogSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log(dialogStatus.checked);
+    // console.log(dialogTitle.value);
+    // console.log(dialogPages.value);
+    // console.log(dialogAuthor.value);
+    addBookToLibrary(dialogTitle.value, dialogAuthor.value, dialogPages.value, dialogStatus.checked);
+    printLibrary();
+    //ff
+});
+
 
 const myLibrary = [];
 
@@ -22,29 +38,34 @@ function addBookToLibrary(bookTitle, bookAuthor, bookPages, bookStatus) {
 }
 
 // console.log("Library: " + myLibrary);
-addBookToLibrary("Title1", "John Doe", 223, true);
-addBookToLibrary("Title2", "Steven Sarm", 105, false);
+// addBookToLibrary("Title1", "John Doe", 223, true);
+// addBookToLibrary("Title2", "Steven Sarm", 105, false);
 
 // console.log("Added a book. New Library: " + myLibrary[0].id);
 
-function printLibrary(libraryArray) {
-    const length = libraryArray.length;
-    for (let i=0; i<length; i++) {
+function printLibrary() {
+    // Remove everything first then print the entire list
+    while (library.firstChild) {
+        // console.log("removing");
+        library.removeChild(library.firstChild);
+    }
+
+    for (let i=0; i<myLibrary.length; i++) {
         // console.log(`Title: ${libraryArray[i].title}, author: ${libraryArray[i].author}, number of pages: ${libraryArray[i].numPages}, status: ${libraryArray[i].status}, id: ${libraryArray[i].id}`);
         const newBook = document.createElement("div");
         newBook.setAttribute("class", "book");
-        newBook.setAttribute("id", libraryArray[i].id);
+        newBook.setAttribute("id", myLibrary[i].id);
 
         const newTitle = document.createElement("p");
-        newTitle.textContent = libraryArray[i].title;
+        newTitle.textContent = myLibrary[i].title;
         const newAuthor = document.createElement("p");
-        newAuthor.textContent = libraryArray[i].author;
+        newAuthor.textContent = myLibrary[i].author;
         const newPages = document.createElement("p");
-        newPages.textContent = libraryArray[i].numPages + " Pages";
+        newPages.textContent = myLibrary[i].numPages + " Pages";
 
         const statusButton = document.createElement("button");
         statusButton.setAttribute("id", "changeStatus");
-        statusButton.textContent = libraryArray[i].status ? "Read" : "Not Read";
+        statusButton.textContent = myLibrary[i].status ? "Read" : "Not Read";
         const deleteButton = document.createElement("button");
         deleteButton.setAttribute("id", "deleteBook");
         deleteButton.textContent = "Delete";
@@ -56,23 +77,31 @@ function printLibrary(libraryArray) {
         newBook.appendChild(statusButton);
         newBook.appendChild(deleteButton);
     }
-    return;
-}
+    const deleteButtons = document.querySelectorAll("#deleteBook");
 
-function deleteBook(id) {
-    const bookToRemove = document.querySelector("#" + id);
-    library.removeChild(bookToRemove);
-}
-
-printLibrary(myLibrary);
-
-const deleteButtons = document.querySelectorAll("#deleteBook");
-
-console.log("test");
-for (let i=0; i<deleteButtons.length; i++) {
-    deleteButtons[i].addEventListener("click", (e) => {
-        // console.log(e.target.parentElement.id);
+    for (let i=0; i<deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener("click", (e) => {
+        console.log(e.target.parentElement.id);
         deleteBook(e.target.parentElement.id);
     });
 }
+    return;
+}
+
+function deleteBook(myid) {
+    const bookToRemove = document.querySelector(`#${CSS.escape(myid)}`);
+    console.log(bookToRemove);
+    library.removeChild(bookToRemove);
+    // console.log("my Lib before: " + myLibrary);
+    myLibrary.forEach(book => {
+        if (book.id == myid) {
+            myLibrary.splice(myLibrary.indexOf(book));
+        }
+    })
+    // console.log("my Lib after: " + myLibrary);
+}
+
+// printLibrary(myLibrary);
+
+
 
