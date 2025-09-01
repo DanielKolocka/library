@@ -24,25 +24,29 @@ dialogSubmit.addEventListener("click", (e) => {
 
 const myLibrary = [];
 
-function Book(title, author, numPages, status) {
-    this.title = title;
-    this.author = author;
-    this.numPages = numPages;
-    this.status = status;
-    this.id = crypto.randomUUID();
+class Book {
+    constructor(title, author, numPages, status) {
+        this.title = title;
+        this.author = author;
+        this.numPages = numPages;
+        this.status = status;
+        this.id = crypto.randomUUID();
+    }
+
+    toggleStatus(e) {
+        console.log(e.target);
+        if (e.target.innerHTML == "Not Read") {
+            e.target.innerHTML = "Read";
+            e.target.style.backgroundColor = "green";
+        }
+        else {
+            e.target.innerHTML = "Not Read";
+            e.target.style.backgroundColor = "red";
+        }   
+    }
 }
 
-Book.prototype.toggleStatus = function(e) {
-    console.log(e.target);
-    if (e.target.innerHTML == "Not Read") {
-        e.target.innerHTML = "Read";
-        e.target.style.backgroundColor = "green";
-    }
-    else {
-        e.target.innerHTML = "Not Read";
-        e.target.style.backgroundColor = "red";
-    }
-}
+
 
 function addBookToLibrary(bookTitle, bookAuthor, bookPages, bookStatus) {
     let book = new Book(bookTitle, bookAuthor, bookPages, bookStatus);
